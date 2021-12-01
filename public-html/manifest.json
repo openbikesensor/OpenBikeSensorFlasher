@@ -1,0 +1,17 @@
+{
+  "name": "OpenBikeSensor",
+  "version": "FIRMWARE_VERSION",
+  "new_install_skip_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "0x01000.bin", "offset": 4096 },
+        { "path": "0x08000.bin", "offset": 32768 },
+        { "path": "0x0e000.bin", "offset": 57344 },
+        { "path": "0x10000.bin", "offset": 65536 },
+        { "path": "flash.bin", "offset": 3735552 }
+      ]
+    }
+  ]
+}
