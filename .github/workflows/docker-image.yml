@@ -50,7 +50,7 @@ jobs:
           output_path: 'results.json'
           token: ${{ secrets.GITHUB_TOKEN }}
           ignore_on_exit: results
-          enable_comments: true
+          enable_comments: false
           output_formats: 'json,sarif'
       - name: display kics results
         run: |
