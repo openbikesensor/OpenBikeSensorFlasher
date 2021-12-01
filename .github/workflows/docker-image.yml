@@ -42,7 +42,16 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: KICS Github Action - just for testing - not official
-        uses: fjsnogueira/kics-github-action@v1.4
+# https://github.com/marketplace/actions/kics-github-action
+      - name: run kics Scan
+        uses: checkmarx/kics-action@v1.3
         with:
-          path: .
+          path: '.'
+          output_path: 'results.json'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ignore_on_exit: results
+          enable_comments: true
+          output_formats: 'json,sarif'
+      - name: display kics results
+        run: |
+          cat results.json
