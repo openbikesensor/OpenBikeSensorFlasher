@@ -1,4 +1,4 @@
-# OpenBileSensorFlasher
+# OpenBikeSensorFlasher
 
 This container exposes a static web page that allows direct 
 flashing of the OpenBikeSensor Firmware to an ESP via the 
