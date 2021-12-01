@@ -52,6 +52,7 @@ jobs:
           ignore_on_exit: results
           enable_comments: false
           output_formats: 'json,sarif'
+          exclude_results: '8e46ad83d3654b892e464ca2c35178ffeb36524854e012f3ffe2b20d279372d3,36b85e90377c6b62b6936e7b79019aff616e5d6190ff0221302c43d52dd423bb,7d7ec6bcba0a320550d74abf460f9f72624bfba44fa90cd8e25a9c3a785c3582,ca2086c5bbede56ff3b793a4f3288c119ded312ad7e287f601e9d7b9e9516a29'
       - name: display kics results
         run: |
           cat target/results.json
