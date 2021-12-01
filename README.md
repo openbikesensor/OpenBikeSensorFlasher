@@ -7,7 +7,7 @@ Chrome browser.
 To run the container call
 
     docker build -t openbikesensor/openbikesensorflasher .
-	docker run --rm -p 80:80 openbikesensorflasher
+	docker run --rm -p 80:80 openbikesensor/openbikesensorflasher
 	
 then open your browser at http://localhost/.
 
