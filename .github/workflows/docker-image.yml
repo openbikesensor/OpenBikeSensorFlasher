@@ -47,11 +47,11 @@ jobs:
         uses: checkmarx/kics-action@v1.3
         with:
           path: '.'
-          output_path: 'results.json'
+          output_path: 'target'
           token: ${{ secrets.GITHUB_TOKEN }}
           ignore_on_exit: results
           enable_comments: false
           output_formats: 'json,sarif'
       - name: display kics results
         run: |
-          cat results.json
+          cat target/results.json
