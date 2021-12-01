@@ -42,7 +42,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-    - name: KICS Github Action - just for testing - not official
-      uses: fjsnogueira/kics-github-action@v1.4
-      with:
-        path: .
+      - name: KICS Github Action - just for testing - not official
+        uses: fjsnogueira/kics-github-action@v1.4
+        with:
+          path: .
