@@ -11,10 +11,10 @@ RUN mkdir /tmp/obs && \
 
 ADD ./public-html/ /tmp/obs/
 
-RUN sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/index.html 
-RUN sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/manifest.json 
+RUN sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/index.html && \
+    sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/manifest.json
 
 
 FROM httpd:2.4
 
-COPY --chown=www-data --from=builder /tmp/obs/ /usr/local/apache2/htdocs/
+COPY --from=builder /tmp/obs/ /usr/local/apache2/htdocs/
