@@ -13,7 +13,7 @@ then open your browser at http://localhost/.
 
 ## Details 
 
-TODO
+See linked documents for details.
 
 
 ## Shoulders

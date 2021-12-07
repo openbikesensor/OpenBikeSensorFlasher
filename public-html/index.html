@@ -4,6 +4,15 @@
     <meta charset='utf-8'/>
     <title>Flashing OpenBikeSensor FIRMWARE_VERSION</title>
     <style>
+        form {
+            background: #fff;
+            max-width: 85%;
+            margin: 75px auto;
+            padding: 30px;
+            border-radius: 5px;
+            text-align: center
+        }
+
         input, button {
             width: 100%;
             height: 44px;
@@ -49,6 +58,17 @@
             margin-right: 10px;
         }
 
+        ul {
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        ol {
+            text-align: left;
+            line-height: 1.5;
+        }
+
+
     </style>
     <script
             type="module"
@@ -56,19 +76,50 @@
     ></script>
 </head>
 <body>
+<form>
+    <h1>OpenBikeSensor</h1>
+    <h2>FIRMWARE_VERSION</h2>
+    <h3>Installation</h3>
+    <ol>
+        <li>Connect your ESP via USB to the computer.</li>
+        <li>Press connect to start the installation. If you are not sure which port to use
+            simply unplug the ESP and see the port appearing or disappearing. If no device shows
+            up you need to install the (USB Serial
+            Drivers)[https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers].
+        </li>
+        <li>The firmware will be installed on the ESP this will take 2 minutes.</li>
+        <li>Now the OpenBikeSensor firmware will do some
+            installation steps that again take up to 2 minutes. You can
+            follow this on the display of your OpenBikeSensor, be patient.
+        </li>
+        <li>Now you get the "Installation complete!" message. Select "next".</li>
+        <li>Pressing "Connect to Wi-Fi" lets you enter your Wi-fi credentials to bring the OpenBikeSensor
+            into your local Wi-Fi network.
+        </li>
+        <li>Enter your network name and password.</li>
+        <li>After connection you can use "Visit Device" to open up the OpenBikeSensor web ui
+            and do additional configuration. The
+            <a href="https://www.openbikesensor.org/docs/user-guide/configuration/advanced/">OpenBikeSensor
+                documentation</a> gives details.
+        </li>
+        <li>You can also peek into the internal serial output for the openBikeSensor via "Logs & Console"
+            Option" which might help for troubleshooting. This can be used also not only during
+            installation.
+        </li>
+    </ol>
 
-<h1>Flashing ESP32 for OpenBikeSensor Firmware FIRMWARE_VERSION</h1>
-<p>Easy as it is - just press CONNECT:</p>
-<!-- TODO: Erase 1st as option see https://github.com/Aircoookie/WLED-WebFlasher/blob/master/index.htm for a sample -->
-<esp-web-install-button
-        manifest="manifest.json"
-></esp-web-install-button>
+    <p><em>tl;dr: Press CONNECT</em></p>
+    <esp-web-install-button
+            manifest="manifest.json"
+    ></esp-web-install-button>
 
-<p>Go to <a href="https://www.openbikesensor.org/">OpenBikeSensor home</a> for an overview.</p>
+    <h3>Project Details</h3>
 
-<h1>Licenses</h1>
-<h2>OpenBikeSensor</h2>
-<pre>
+    <p>Go to <a href="https://www.openbikesensor.org/">OpenBikeSensor home</a> for an overview.</p>
+
+    <h3>Licenses</h3>
+    <h4>OpenBikeSensor</h4>
+    <pre>
 Copyright (C) 2020-2021 OpenBikeSensor Contributors
 Contact: https://openbikesensor.org
 
@@ -89,13 +140,14 @@ along with the OpenBikeSensor Website and Documentation. If not, see
 &lt;http://www.gnu.org/licenses/>.
 </pre>
 
-<h2>Used libraries and tools</h2>
-<ul>
-    <li><a href="https://esphome.github.io/esp-web-tools/">ESP Web Tools</a></li>
-    <li><a href="COPYRIGHT-ESP.html">ESP-IDF</a></li>
-    <li><a href="LICENSE-ARDUINO-ESP32.md">ESP Arduino</a></li>
-    <li><a href="LICENSE-OpenSans.txt">OpenSans</a></li>
-</ul>
+    <h4>Used libraries and tools</h4>
+    <ul>
+        <li><a href="https://esphome.github.io/esp-web-tools/">ESP Web Tools</a></li>
+        <li><a href="COPYRIGHT-ESP.html">ESP-IDF</a></li>
+        <li><a href="LICENSE-ARDUINO-ESP32.md">ESP Arduino</a></li>
+        <li><a href="LICENSE-OpenSans.txt">OpenSans</a></li>
+    </ul>
+</form>
 </body>
 </html> 
 
