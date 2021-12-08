@@ -3,7 +3,7 @@
   "version": "FIRMWARE_VERSION",
   "new_install_prompt_erase": true,
   "prompt_erase": true,
-  "new_install_improv_wait_time": 180000,
+  "new_install_improv_wait_time": 180,
   "builds": [
     {
       "chipFamily": "ESP32",
