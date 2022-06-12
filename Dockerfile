@@ -1,5 +1,5 @@
 FROM curlimages/curl:7.83.1 AS builder
-ARG FIRMWARE_VERSION=0.14.731
+ARG FIRMWARE_VERSION=0.16.765
 
 WORKDIR /tmp/obs
 RUN curl --remote-name --location https://github.com/openbikesensor/OpenBikeSensorFirmware/releases/download/v${FIRMWARE_VERSION}/obs-v${FIRMWARE_VERSION}-initial-flash.zip && \
