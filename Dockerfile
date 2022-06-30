@@ -25,7 +25,7 @@ RUN for file in *.bin; \
 RUN chmod -R a=rX .
 
 FROM node:lts AS nodebuilder
-ARG ESP_WEB_TOOLS_VERSION=8.0.5
+ARG ESP_WEB_TOOLS_VERSION=8.0.6
 
 WORKDIR /tmp/esp-web-tool
 RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archive/refs/tags/${ESP_WEB_TOOLS_VERSION}.zip && \
