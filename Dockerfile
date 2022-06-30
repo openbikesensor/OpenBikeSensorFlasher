@@ -7,10 +7,22 @@ RUN curl --remote-name --location https://github.com/openbikesensor/OpenBikeSens
 	unzip obs-v${FIRMWARE_VERSION}-initial-flash.zip && \
 	rm obs-v${FIRMWARE_VERSION}-initial-flash.zip
 
-COPY  ./public-html/ ./
+COPY --chown=100 ./public-html/ ./
 RUN sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/index.html && \
-    sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/manifest.json
+    sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/manifest.json && \
+    mv /tmp/obs/manifest.json /tmp/obs/manifest-${FIRMWARE_VERSION}.json
 
+RUN for file in *.bin; \
+    do \
+        if [ -f "$file" ]; \
+        then \
+            sha256=`sha256sum -b ${file} | cut -c1-32`; \
+            mv ${file} ${sha256}-${file}; \
+            sed -i "s/${file}/${sha256}-${file}/g" manifest-*.json; \
+        fi \
+    done
+
+RUN chmod -R a=rX .
 
 FROM node:lts AS nodebuilder
 ARG ESP_WEB_TOOLS_VERSION=8.0.5
@@ -22,10 +34,12 @@ RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archi
     mv */* . && \
     npm ci  && \
     script/build && \
-    npm exec -- prettier --check src
+    npm exec -- prettier --check src && \
+    chmod -R a=rX /tmp/esp-web-tool/dist
 
 
 FROM httpd:2.4
 
-COPY --from=builder /tmp/obs/ /usr/local/apache2/htdocs/
-COPY --from=nodebuilder /tmp/esp-web-tool/dist/web/ /usr/local/apache2/htdocs/esp-web-tools
+COPY --chown=nobody:nogroup --from=builder /tmp/obs/ /usr/local/apache2/htdocs/
+COPY --chown=nobody:nogroup --from=nodebuilder /tmp/esp-web-tool/dist/web/ /usr/local/apache2/htdocs/esp-web-tools
+
