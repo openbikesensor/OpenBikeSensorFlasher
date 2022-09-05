@@ -1,4 +1,4 @@
-FROM curlimages/curl:7.84.0 AS builder
+FROM curlimages/curl:7.85.0 AS builder
 ARG FIRMWARE_VERSION=0.16.765
 
 WORKDIR /tmp/obs
