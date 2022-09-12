@@ -34,6 +34,9 @@ RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archi
     mv */* . && \
 # until https://github.com/esphome/esp-web-tools/issues/270 is fixed
     sed -i 's|esptool-js/esploader.js|esptool-js/ESPLoader.js|g' src/flash.ts && \
+# increase speed
+    sed -i 's|esploader.flash_id();|esploader.flash_id();\n    await esploader.change_baud();|g' src/flash.ts && \
+    sed -i 's|115200|921600|g' src/flash.ts && \
     npm ci  && \
     script/build && \
     npm exec -- prettier --check src && \
