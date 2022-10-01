@@ -25,15 +25,13 @@ RUN for file in *.bin; \
 RUN chmod -R a=rX .
 
 FROM node:16-bullseye AS nodebuilder
-ARG ESP_WEB_TOOLS_VERSION=9.0.3
+ARG ESP_WEB_TOOLS_VERSION=9.0.4
 
 WORKDIR /tmp/esp-web-tool
 RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archive/refs/tags/${ESP_WEB_TOOLS_VERSION}.zip && \
     unzip *.zip && \
     rm *.zip && \
     mv */* . && \
-# until https://github.com/esphome/esp-web-tools/issues/270 is fixed
-    sed -i 's|esptool-js/esploader.js|esptool-js/ESPLoader.js|g' src/flash.ts && \
 # increase speed
     sed -i 's|esploader.flash_id();|esploader.flash_id();\n    await esploader.change_baud();|g' src/flash.ts && \
     sed -i 's|115200|921600|g' src/flash.ts && \
