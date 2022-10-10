@@ -33,6 +33,8 @@ RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archi
     unzip *.zip && \
     rm *.zip && \
     mv */* . && \
+# make unsupported browser hint more visible
+    sed -i "/'unsupported'/ s|\(<slot.*unsupported.*slot>\)|<div style='font-size:xx-large;color:red;font-weight:bold;'>\1</div>|" src/install-button.ts && \
 # increase speed
     sed -i 's|esploader.flash_id();|esploader.flash_id();\n    await esploader.change_baud();|g' src/flash.ts && \
     sed -i 's|115200|921600|g' src/flash.ts && \
