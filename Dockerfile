@@ -25,7 +25,7 @@ RUN for file in *.bin; \
 
 RUN chmod -R a=rX .
 
-FROM node:16-bullseye AS nodebuilder
+FROM node:19-bullseye AS nodebuilder
 ARG ESP_WEB_TOOLS_VERSION=9.0.4
 
 WORKDIR /tmp/esp-web-tool
