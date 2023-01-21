@@ -69,14 +69,14 @@ jobs:
           image-ref: '${{ steps.meta.outputs.tags }}'
           format: 'table'
 
-      - name: Run Trivy vulnerability scanner - sarif
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: '${{ steps.meta.outputs.tags }}'
-          format: 'sarif'
-          output: 'target/trivy-results.sarif'
+#      - name: Run Trivy vulnerability scanner - sarif
+#        uses: aquasecurity/trivy-action@master
+#        with:
+#          image-ref: '${{ steps.meta.outputs.tags }}'
+#          format: 'sarif'
+#          output: 'target/trivy-results.sarif'
 
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: 'target/trivy-results.sarif'
+#      - name: Upload Trivy scan results to GitHub Security tab
+#        uses: github/codeql-action/upload-sarif@v2
+#        with:
+#          sarif_file: 'target/trivy-results.sarif'
