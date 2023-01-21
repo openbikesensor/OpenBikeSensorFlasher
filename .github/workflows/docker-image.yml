@@ -57,10 +57,10 @@ jobs:
         run: |
           cat target/results.json
 
-      - name: Upload kics results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: 'target/results.sarif'
+#      - name: Upload kics results to GitHub Security tab
+#        uses: github/codeql-action/upload-sarif@v2
+#        with:
+#          sarif_file: 'target/results.sarif'
 
 # https://github.com/marketplace/actions/aqua-security-trivy
       - name: Run Trivy vulnerability scanner - table
