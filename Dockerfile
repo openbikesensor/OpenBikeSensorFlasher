@@ -1,4 +1,4 @@
-FROM curlimages/curl:7.88.1 AS builder
+FROM curlimages/curl:8.00.1 AS builder
 ARG FIRMWARE_VERSION=0.16.765
 
 RUN mkdir /tmp/obs
@@ -26,25 +26,26 @@ RUN for file in *.bin; \
 RUN chmod -R a=rX .
 
 FROM node:16-bullseye AS nodebuilder
-ARG ESP_WEB_TOOLS_VERSION=9.0.4
+ARG ESP_WEB_TOOLS_VERSION=9.2.1
 
 WORKDIR /tmp/esp-web-tool
+RUN DEBIAN_FRONTEND=noninteractive \
+      apt update && \
+    DEBIAN_FRONTEND=noninteractive \
+      apt install -y -qq jq
 RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archive/refs/tags/${ESP_WEB_TOOLS_VERSION}.zip && \
     unzip *.zip && \
     rm *.zip && \
     mv */* . && \
 # make unsupported browser hint more visible
     sed -i "/'unsupported'/ s|\(<slot.*unsupported.*slot>\)|<div style='font-size:xx-large;color:red;font-weight:bold;'>\1</div>|" src/install-button.ts && \
-# increase speed
-    sed -i 's|esploader.flash_id();|esploader.flash_id();\n    await esploader.change_baud();|g' src/flash.ts && \
-    sed -i 's|115200|921600|g' src/flash.ts && \
     npm ci  && \
     script/build && \
     npm exec -- prettier --check src && \
     chmod -R a=rX /tmp/esp-web-tool/dist
 
 
-FROM httpd:2.4
+FROM httpd:2.4-alpine
 
 COPY --chown=nobody:nogroup --from=builder /tmp/obs/ /usr/local/apache2/htdocs/
 COPY --chown=nobody:nogroup --from=nodebuilder /tmp/esp-web-tool/dist/web/ /usr/local/apache2/htdocs/esp-web-tools
