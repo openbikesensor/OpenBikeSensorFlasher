@@ -1,5 +1,5 @@
 FROM curlimages/curl:8.00.1 AS builder
-ARG FIRMWARE_VERSION=0.16.765
+ARG FIRMWARE_VERSION=0.18.849
 
 RUN mkdir /tmp/obs
 WORKDIR /tmp/obs
