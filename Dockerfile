@@ -29,10 +29,10 @@ FROM node:18-bullseye AS nodebuilder
 ARG ESP_WEB_TOOLS_VERSION=9.2.1
 
 WORKDIR /tmp/esp-web-tool
-RUN DEBIAN_FRONTEND=noninteractive \
-      apt update -qq && \
-    DEBIAN_FRONTEND=noninteractive \
-      apt install -y -qq jq && \
+
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update -qq && \
+    apt-get install -y -qq jq && \
     npm install -g npm@9.6.2
 RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archive/refs/tags/${ESP_WEB_TOOLS_VERSION}.zip && \
     unzip *.zip && \
