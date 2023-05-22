@@ -1,4 +1,4 @@
-FROM curlimages/curl:8.00.1 AS builder
+FROM curlimages/curl:8.1.0 AS builder
 ARG FIRMWARE_VERSION=0.18.849
 
 RUN mkdir /tmp/obs
