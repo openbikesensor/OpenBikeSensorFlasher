@@ -1,4 +1,6 @@
 FROM curlimages/curl:8.1.1 AS builder
+
+# see https://github.com/openbikesensor/OpenBikeSensorFirmware/releases
 ARG FIRMWARE_VERSION=0.18.849
 
 RUN mkdir /tmp/obs
@@ -15,7 +17,7 @@ RUN sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/index.html && \
 
 RUN for file in *.bin; \
     do \
-        if [ -f "$file" ]; \
+        if [ -f "${file}" ]; \
         then \
             sha256=`sha256sum -b ${file} | cut -c1-32`; \
             mv ${file} ${sha256}-${file}; \
@@ -25,7 +27,10 @@ RUN for file in *.bin; \
 
 RUN chmod -R a=rX .
 
-FROM node:18-bullseye AS nodebuilder
+# based on infos here https://github.com/espressif/esptool-js/blob/main/.github/workflows/ci.yml#L16
+FROM node:16-bullseye AS nodebuilder
+
+# see at https://github.com/esphome/esp-web-tools/releases
 ARG ESP_WEB_TOOLS_VERSION=9.2.1
 
 WORKDIR /tmp/esp-web-tool
@@ -33,7 +38,7 @@ WORKDIR /tmp/esp-web-tool
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -qq && \
     apt-get install -y -qq jq && \
-    npm install -g npm@9.6.2
+    npm install -g npm@8.19.4
 RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archive/refs/tags/${ESP_WEB_TOOLS_VERSION}.zip && \
     unzip *.zip && \
     rm *.zip && \

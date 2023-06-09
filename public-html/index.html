@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset='utf-8'/>
-    <title>Flashing OpenBikeSensor FIRMWARE_VERSION</title>
+    <title>Installing OpenBikeSensor FIRMWARE_VERSION</title>
     <style>
         form {
             background: #fff;
@@ -80,13 +80,20 @@
     <h1>OpenBikeSensor</h1>
     <h2>FIRMWARE_VERSION</h2>
     <h3>Installation</h3>
+
+    <esp-web-install-button
+            manifest="manifest-FIRMWARE_VERSION.json"
+    ></esp-web-install-button>
+
+    <h3>Installation Details</h3>
+
     <ol>
         <li>Connect your ESP via USB to the computer.</li>
         <li>Press connect to start the installation. If you are not sure which port to use
             simply unplug the ESP and see the port appearing or disappearing. If no device shows
             up you need to install the
             <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers" >USB Serial
-            Drivers</a>
+                Drivers</a>
         </li>
         <li>The firmware will be installed on the ESP this will take 2 minutes.</li>
         <li>Now the OpenBikeSensor firmware will do some
@@ -108,11 +115,6 @@
             installation.
         </li>
     </ol>
-
-    <p><em>tl;dr: Press CONNECT</em></p>
-    <esp-web-install-button
-            manifest="manifest-FIRMWARE_VERSION.json"
-    ></esp-web-install-button>
 
     <h3>Project Details</h3>
 
