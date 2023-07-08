@@ -33,12 +33,11 @@ FROM node:16-bullseye AS nodebuilder
 # see at https://github.com/esphome/esp-web-tools/releases
 ARG ESP_WEB_TOOLS_VERSION=9.4.0
 
-WORKDIR /tmp/esp-web-tool
-
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -qq && \
     apt-get install -y -qq jq && \
     npm install -g npm@8.19.4
+WORKDIR /tmp/esp-web-tool
 RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archive/refs/tags/${ESP_WEB_TOOLS_VERSION}.zip && \
     unzip *.zip && \
     rm *.zip && \
@@ -52,6 +51,10 @@ RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archi
 
 
 FROM httpd:2.4-alpine
+
+LABEL version="${FIRMWARE_VERSION}" \
+      description="OpenBikeSensor Firmware with ESP Web Tools" \
+      maintainer="andreas.mandel@gmail.com"
 
 COPY --chown=nobody:nogroup --from=builder /tmp/obs/ /usr/local/apache2/htdocs/
 COPY --chown=nobody:nogroup --from=nodebuilder /tmp/esp-web-tool/dist/web/ /usr/local/apache2/htdocs/esp-web-tools
