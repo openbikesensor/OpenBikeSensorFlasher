@@ -31,7 +31,7 @@ RUN chmod -R a=rX .
 FROM node:16-bullseye AS nodebuilder
 
 # see at https://github.com/esphome/esp-web-tools/releases
-ARG ESP_WEB_TOOLS_VERSION=9.2.1
+ARG ESP_WEB_TOOLS_VERSION=9.4.0
 
 WORKDIR /tmp/esp-web-tool
 
