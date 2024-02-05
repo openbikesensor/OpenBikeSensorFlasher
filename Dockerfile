@@ -1,4 +1,4 @@
-FROM curlimages/curl:8.4.0 AS builder
+FROM curlimages/curl:8.6.0 AS builder
 
 # see https://github.com/openbikesensor/OpenBikeSensorFirmware/releases
 ARG FIRMWARE_VERSION=0.18.849
