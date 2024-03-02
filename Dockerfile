@@ -36,7 +36,7 @@ ARG ESP_WEB_TOOLS_VERSION=9.4.2
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -qq && \
     apt-get install -y -qq jq && \
-    npm install -g npm@8.19.4
+    npm install -g npm@10.5.0
 WORKDIR /tmp/esp-web-tool
 RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archive/refs/tags/${ESP_WEB_TOOLS_VERSION}.zip && \
     unzip *.zip && \
