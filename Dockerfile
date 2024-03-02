@@ -1,7 +1,7 @@
 FROM curlimages/curl:8.6.0 AS builder
 
 # see https://github.com/openbikesensor/OpenBikeSensorFirmware/releases
-ARG FIRMWARE_VERSION=0.18.849
+ARG FIRMWARE_VERSION=0.19.877
 
 RUN mkdir /tmp/obs
 WORKDIR /tmp/obs
@@ -31,7 +31,7 @@ RUN chmod -R a=rX .
 FROM node:20-bullseye AS nodebuilder
 
 # see at https://github.com/esphome/esp-web-tools/releases
-ARG ESP_WEB_TOOLS_VERSION=9.4.1
+ARG ESP_WEB_TOOLS_VERSION=9.4.2
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -qq && \
