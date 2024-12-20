@@ -5,15 +5,25 @@ ARG FIRMWARE_VERSION=0.21.929
 
 RUN mkdir /tmp/obs
 WORKDIR /tmp/obs
+RUN curl --remote-name --location https://github.com/openbikesensor/OpenBikeSensorFirmware/releases/download/v${FIRMWARE_VERSION}/obspro-v${FIRMWARE_VERSION}-initial-flash.zip && \
+	unzip *-initial-flash.zip 0x10000.bin && \
+    mv 0x10000.bin obspro-0x10000.bin && \
+    rm *.zip
+
 RUN curl --remote-name --location https://github.com/openbikesensor/OpenBikeSensorFirmware/releases/download/v${FIRMWARE_VERSION}/obs-v${FIRMWARE_VERSION}-initial-flash.zip && \
     curl --remote-name --location  https://github.com/openbikesensor/OpenBikeSensorFlash/releases/latest/download/flash.bin && \
 	unzip obs-v${FIRMWARE_VERSION}-initial-flash.zip && \
 	rm obs-v${FIRMWARE_VERSION}-initial-flash.zip
 
+
+
 COPY --chown=100 ./public-html/ ./
 RUN sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/index.html && \
     sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/manifest.json && \
-    mv /tmp/obs/manifest.json /tmp/obs/manifest-${FIRMWARE_VERSION}.json
+    cp /tmp/obs/manifest.json /tmp/obs/manifest-obs-${FIRMWARE_VERSION}.json && \
+    mv /tmp/obs/manifest.json /tmp/obs/manifest-obspro-${FIRMWARE_VERSION}.json && \
+    sed -i "s/OpenBikeSensor/OpenBikeSensorPro/g" /tmp/obs/manifest-obspro-${FIRMWARE_VERSION}.json && \
+    sed -i "s/0x10000.bin/obspro-0x10000.bin/g" /tmp/obs/manifest-obspro-${FIRMWARE_VERSION}.json
 
 RUN for file in *.bin; \
     do \
@@ -21,7 +31,8 @@ RUN for file in *.bin; \
         then \
             sha256=`sha256sum -b ${file} | cut -c1-32`; \
             mv ${file} ${sha256}-${file}; \
-            sed -i "s/${file}/${sha256}-${file}/g" manifest-*.json; \
+            sed -i "s/\"${file}\"/\"${sha256}-${file}\"/g" manifest-obs-*.json; \
+            sed -i "s/\"${file}\"/\"${sha256}-${file}\"/g" manifest-obspro-*.json; \
         fi \
     done
 
@@ -43,7 +54,7 @@ RUN curl --remote-name --location https://github.com/esphome/esp-web-tools/archi
     rm *.zip && \
     mv */* . && \
 # make unsupported browser hint more visible
-    sed -i "/'unsupported'/ s|\(<slot.*unsupported.*slot>\)|<div style='font-size:xx-large;color:red;font-weight:bold;'>\1</div>|" src/install-button.ts && \
+#    sed -i "/'unsupported'/ s|\(<slot.*unsupported.*slot>\)|<div style='font-size:xx-large;color:red;font-weight:bold;'>\1</div>|" src/install-button.ts && \
     npm ci  && \
     script/build && \
     npm exec -- prettier --check src && \
