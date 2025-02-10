@@ -44,7 +44,7 @@ jobs:
 
 # https://github.com/marketplace/actions/kics-github-action
       - name: run kics Scan
-        uses: checkmarx/kics-github-action@v2.1.1
+        uses: checkmarx/kics-github-action@v2.1.5
         with:
           path: '.'
           output_path: 'target'
