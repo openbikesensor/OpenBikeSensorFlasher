@@ -1,4 +1,4 @@
-FROM curlimages/curl:8.11.1 AS builder
+FROM curlimages/curl:8.12.1 AS builder
 
 # see https://github.com/openbikesensor/OpenBikeSensorFirmware/releases
 ARG FIRMWARE_VERSION=0.21.929
@@ -15,9 +15,7 @@ RUN curl --remote-name --location https://github.com/openbikesensor/OpenBikeSens
 	unzip obs-v${FIRMWARE_VERSION}-initial-flash.zip && \
 	rm obs-v${FIRMWARE_VERSION}-initial-flash.zip
 
-
-
-COPY --chown=100 ./public-html/ ./
+COPY --chown=curl_user ./public-html/ ./
 RUN sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/index.html && \
     sed -i "s/FIRMWARE_VERSION/${FIRMWARE_VERSION}/g" /tmp/obs/manifest.json && \
     cp /tmp/obs/manifest.json /tmp/obs/manifest-obs-${FIRMWARE_VERSION}.json && \
@@ -36,7 +34,7 @@ RUN for file in *.bin; \
         fi \
     done
 
-RUN chmod -R a=rX .
+RUN chmod -R -c a=rX .
 
 # based on infos here https://github.com/espressif/esptool-js/blob/main/.github/workflows/ci.yml#L16
 FROM node:20-bullseye AS nodebuilder
