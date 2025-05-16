@@ -37,7 +37,7 @@ RUN for file in *.bin; \
 RUN chmod -R -c a=rX .
 
 # based on infos here https://github.com/espressif/esptool-js/blob/main/.github/workflows/ci.yml#L16
-FROM node:20-bullseye AS nodebuilder
+FROM node:24-bullseye AS nodebuilder
 
 # see at https://github.com/esphome/esp-web-tools/releases
 ARG ESP_WEB_TOOLS_VERSION=10.1.0
